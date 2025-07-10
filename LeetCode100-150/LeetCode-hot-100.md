@@ -52,7 +52,7 @@ class Solution {
 }
 ```
 
-#### 3. 最长连续序列
+####  3. 最长连续序列
 
 ![image-20250708184544110](./assets/image-20250708184544110.png)
 
@@ -116,11 +116,90 @@ class Solution {
  著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
  ```
 
+### 双指针
 
+##### 1. 移动零
 
+![image-20250710164941384](./assets/image-20250710164941384.png)
 
+```java
+class Solution {
+    public void moveZeroes(int[] nums) {
+        // 快慢双指针！！！
+        int right=0;
+        int left =0;
+        while(right<nums.length){
+            if(nums[right]!=0){
+                
+                nums[left] = nums[right];
+                left ++;
+            }
+            right ++;
+        }
+        while(left < nums.length){
+            nums[left] = 0;
+            left ++;
+        } 
+    }
+}
+```
 
+##### 2. [盛最多水的容器](https://leetcode.cn/problems/container-with-most-water/)
 
+![image-20250710170100190](./assets/image-20250710170100190.png)
 
+```java
+class Solution {
+    public int maxArea(int[] height) {
 
+        // 双指针！！！
+        int i=0;
+        int j = height.length-1;
+        int answer = 0;
+         while(i< j){
+
+            answer = Math.max(answer, (j-i)*(Math.min(height[i],height[j])));
+            //System.out.println((j-i)*(Math.min(height[i],height[j])));
+            if(height[i] < height[j]){
+                i++;
+            }else{
+                j--;
+            }
+         }
+         return answer;
+        
+    }
+}
+```
+
+#### 3. [15. 三数之和](https://leetcode.cn/problems/3sum/)
+
+![image-20250710170912319](./assets/image-20250710170912319.png)
+
+```java
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+      
+      // 排序 + 双指针！！！
+        Set<List<Integer>> res = new HashSet<>();
+        Arrays.sort(nums);
+        for(int i = 0; i < nums.length; i++){
+            int left = i + 1, right = nums.length - 1;
+            while(left < right){
+                if(nums[i] + nums[left] + nums[right] == 0){
+                    res.add(new ArrayList<>(Arrays.asList(nums[i],nums[left],nums[right])));
+                    left++;
+                    right--;
+                }else if(nums[i] + nums[left] + nums[right] < 0){
+                    left++;
+                }else{
+                    right--;
+                }
+            }
+        }
+        List<List<Integer>> ress = new ArrayList<>(res);
+        return ress;
+    }
+}
+```
 
