@@ -203,3 +203,37 @@ class Solution {
 }
 ```
 
+#### 4. 接雨水
+
+![image-20250711165017314](./assets/image-20250711165017314.png)
+
+```java
+class Solution {
+    public int trap(int[] height) {
+    // 单调递减栈
+    LinkedList<Integer> list = new LinkedList<>();
+    list.add(0);
+    int answer = 0;
+    for(int i=0;i < height.length; i++){
+        // 每一次，只出栈一个元素
+        while(!list.isEmpty() && height[list.getLast()] <= height[i]){
+            // 这一次，出栈
+            int tempnum = list.removeLast();
+            if(!list.isEmpty()){
+                // 这一次，不出栈
+                int tempindex = list.getLast();
+                answer += (i - tempindex-1)*(Math.min(height[tempindex], height[i]) -height[tempnum]);
+                System.out.println(answer);
+            }
+        
+        }
+        list.add(i);
+    }
+
+
+    return answer;
+        
+    }
+}
+```
+
